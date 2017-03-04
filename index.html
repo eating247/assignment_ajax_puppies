@@ -5,8 +5,7 @@
     Puppies
   </title>
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-
-
+  <script type="text/javascript" src='script.js'></script>
 
 
   <!-- Latest compiled and minified CSS -->
@@ -26,20 +25,24 @@
     <h1 class="text-center">The AJAX Puppy Shelter</h1>
 
     <div class="col-sm-offset-3 col-sm-6">
-      <h3>Register a new puppy</h3>
+    <h3>Register a new puppy</h3>
+    <form>
       <br>
       <label>Name</label><br>
       <input type="text" name="name"><br>
-      <label>Breed</label><br>
-      <select>select breed</select><br>
+      <label>Breed ID</label><br>
+      <select name="breed_id"></select><br>
       <br>
-      <button>Register Puppy</button>
+      <button type='submit'>Register Puppy</button>
+    </form>
+      
+      
 
       <h3>Our puppies:</h3>
-      <p><a href="#">Refresh puppies list</a></p>
+      <a href="" id='refresh'>Refresh puppies list</a>
 
       <ul>
-        <li>Fluffy, sample-- <a href="#">adopt</a></li>
+        <!-- <li>Fluffy, sample-- <a href="">adopt</a></li> -->
       </ul>
     </div>
 
