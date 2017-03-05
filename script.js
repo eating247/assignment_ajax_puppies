@@ -7,6 +7,46 @@ Controller = (function() {
     refreshListener();
     submitListener();
     adoptListener();
+    userFeedback();
+  }
+
+  var requestCompleted;
+
+  userFeedback = function() {
+    start();
+    finished();
+    failed();
+  }
+
+  start = function() {
+    requestCompleted = false;
+    $( document ).ajaxStart(function(event, xhr) {
+      var $msg = $('<p></p>').text('Waiting').addClass('waiting text-center');
+      $msg.insertBefore('h1');
+      setTimeout( function(){
+        if (!requestCompleted) {
+          $msg.text('Sorry this is taking so long!');
+        }
+      }, 1000)
+      $msg.fadeOut( 1000 );
+    })
+  }
+
+  finished = function() {
+    requestCompleted = true;
+    $( document ).ajaxSuccess(function() {
+      var $msg = $('<p></p>').text('Finished!').addClass('finished text-center');
+      $msg.insertBefore('h1');
+      $msg.fadeOut( 2000 );
+    })
+  }
+
+  failed = function() {
+    $( document ).ajaxError(function() {
+      var $msg = $('<p></p>').text('Error').addClass('error text-center');
+      $msg.insertBefore('h1');
+      $msg.fadeOut( 2000 );
+    })
   }
 
   adoptListener = function() {
@@ -30,8 +70,6 @@ Controller = (function() {
   }
 
   removePuppies = function(data) {
-    // console.log(data.id)
-    $('li').remove();
     refreshPuppies();
   }
 
@@ -107,6 +145,7 @@ Controller = (function() {
   }
 
   displayPuppies = function(puppies) {
+    $('li').remove();
     puppies.forEach(function(pup){
       $adopt = $('<a></a>').text('Adopt').addClass('adopt').attr("puppy_id", pup.id);
       $pup = $('<li></li>').html(pup.name + ' (' + pup.breed.name + '), created at ' + pup.created_at + ' --- ');
